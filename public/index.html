@@ -1,23 +1,54 @@
-<!DOCTYPE  html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport"  content="width=device-width, initial-scale=1">
-    <link rel="manifest"  href="./manifest.json">
-    <link rel="stylesheet"  href="./css/style.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./css/style.css" />
     <title>Hello, PWA !!</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script>
+      ons.ready(function() {
+      });
+    </script>
   </head>
   <body>
-    <p>Hello, World !!</p>
+
+    <ons-navigator id="navigator" page="page1.html"></ons-navigator>
+
+    <div id="app">
+      <p>{{message}}</p>
+      <ons-button onclick="ons.notification.alert('Hello World!')">Click Me</ons-button>
+    </div>
+
+
     <script>
       // ServiceWorker登録
-      if ('serviceWorker'  in navigator) {
-        navigator.serviceWorker.register('./sw.js').then(function(registration) {
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }).catch(function(err) {
-          console.log('ServiceWorker registration failed: ', err);
-        });
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("./sw.js")
+          .then(function (registration) {
+            console.log(
+              "ServiceWorker registration successful with scope: ",
+              registration.scope
+            );
+          })
+          .catch(function (err) {
+            console.log("ServiceWorker registration failed: ", err);
+          });
       }
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            message: "Hello Vue!",
+          };
+        },
+      }).mount("#app");
     </script>
   </body>
 </html>
